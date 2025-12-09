@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Программа</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { background-color: #F2F2F2; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+    </style>
+</head>
+<body class="m-0 p-0 text-gray-800">
+
+    <div class="max-w-md mx-auto min-h-screen flex flex-col bg-[#F2F2F2]">
+
+        <!-- ШАПКА (Стиль FAQ) -->
+        <div class="h-64 w-full relative flex flex-col justify-between overflow-hidden rounded-b-[30px] shadow-lg">
+            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=2070&auto=format&fit=crop" 
+                 class="absolute inset-0 w-full h-full object-cover z-0" alt="Program BG">
+            <div class="absolute inset-0 bg-[#1e1b4b]/80 mix-blend-multiply z-0"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#312e81] via-transparent to-black/10 z-0"></div>
+
+            <div class="relative z-10 p-6 pt-8">
+                <a href="index.html" class="bg-[#ff6b00] w-10 h-10 rounded-[12px] flex items-center justify-center text-white active:scale-95 transition shadow-md hover:bg-[#e05e00]">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+
+            <div class="relative z-10 p-6 pb-8">
+                <h1 class="text-white text-[28px] font-bold leading-[1.1] drop-shadow-md">
+                    Информация<br>о программе
+                </h1>
+            </div>
+        </div>
+
+        <!-- КОНТЕНТ -->
+        <div class="px-4 mt-6 pb-10 space-y-4">
+
+            <div class="bg-white p-5 rounded-[20px] shadow-sm">
+                <h3 class="text-[#ff6b00] font-bold text-lg mb-2">О курсе</h3>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    Здесь будет описание вашей образовательной программы, основные цели и задачи обучения.
+                </p>
+            </div>
+
+            <div class="bg-white p-5 rounded-[20px] shadow-sm">
+                <h3 class="text-[#ff6b00] font-bold text-lg mb-2">Модули обучения</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-start gap-3">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold shrink-0">1</div>
+                        <p class="text-sm text-gray-700">Введение в специальность</p>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold shrink-0">2</div>
+                        <p class="text-sm text-gray-700">Основной блок теории</p>
+                    </li>
+                    <li class="flex items-start gap-3">
+                        <div class="mt-1 w-6 h-6 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center text-xs font-bold shrink-0">3</div>
+                        <p class="text-sm text-gray-700">Практические задания</p>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <script>const tg = window.Telegram.WebApp; tg.expand(); tg.BackButton.hide();</script>
+</body>
+</html>

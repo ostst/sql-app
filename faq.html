@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>FAQ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { background-color: #F2F2F2; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .rotate-180 { transform: rotate(180deg); }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="max-w-md mx-auto min-h-screen flex flex-col fade-in">
+
+        <!-- ================= ШАПКА С КАРТИНКОЙ ================= -->
+        <div class="h-52 w-full p-6 flex flex-col justify-between relative overflow-hidden shadow-lg rounded-b-[24px]">
+
+            <!-- 1. ФОНОВАЯ КАРТИНКА -->
+            <!-- Замените src на свою картинку -->
+            <img src="img/" 
+                 class="absolute inset-0 w-full h-full object-cover z-0" 
+                 alt="Header Background">
+
+            <!-- 2. ЗАТЕМНЕНИЕ (Чтобы текст читался) -->
+            <!-- Синий полупрозрачный слой + Градиент снизу -->
+            <div class="absolute inset-0 bg-indigo-900/40 mix-blend-multiply z-0"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#2e2a85] via-transparent to-black/20 z-0"></div>
+
+            <!-- 3. КОНТЕНТ (Кнопка и Заголовок) -->
+            <div class="relative z-10">
+                <a href="index.html" class="bg-[#ff6b00] w-10 h-10 rounded-[10px] flex items-center justify-center text-white active:scale-95 transition shadow-md">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+            </div>
+
+            <h1 class="text-white text-[28px] font-bold leading-tight relative z-10 drop-shadow-md">
+                Ответы на часто<br>задаваемые вопросы
+            </h1>
+        </div>
+        <!-- ===================================================== -->
+
+        <!-- СПИСОК ВОПРОСОВ -->
+        <div class="px-3 mt-4 space-y-3 pb-10">
+
+            <!-- Вопрос 1 -->
+            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
+                <button onclick="toggleAccordion('faq1')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
+                    <h3 class="text-[#ff6b00] text-base font-bold">Как быстро проверяют задания?</h3>
+                    <i id="icon-faq1" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
+                </button>
+                <div id="content-faq1" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
+                    <p class="text-sm text-gray-700 leading-relaxed">В течение 3 рабочих дней с момента сдачи ваше задание проверит преподаватель.</p>
+                </div>
+            </div>
+
+            <!-- Вопрос 2 -->
+            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
+                <button onclick="toggleAccordion('faq2')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
+                    <h3 class="text-[#ff6b00] text-base font-bold">Контакты для связи</h3>
+                    <i id="icon-faq2" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
+                </button>
+                <div id="content-faq2" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
+                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
+                        <a href="mailto:data_mentor@psb-academy.ru" class="text-blue-600 font-medium underline">data_mentor@psb-academy.ru</a><br>
+                        <span class="text-gray-500 text-xs">Почта для вопросов преподавателю.</span>
+                    </p>
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        <a href="mailto:CDME@psb-academy.ru" class="text-blue-600 font-medium underline">CDME@psb-academy.ru</a><br>
+                        <span class="text-gray-500 text-xs">Организационные вопросы.</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Вопрос 3 -->
+            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
+                <button onclick="toggleAccordion('faq3')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
+                    <h3 class="text-[#ff6b00] text-base font-bold">Программа курса</h3>
+                    <i id="icon-faq3" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
+                </button>
+                <div id="content-faq3" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
+                    <p class="text-sm text-gray-700 leading-relaxed">Здесь будет размещено подробное описание модулей программы.</p>
+                </div>
+            </div>
+
+            <!-- Вопрос 4 -->
+            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
+                <button onclick="toggleAccordion('faq4')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
+                    <h3 class="text-[#ff6b00] text-base font-bold">Удостоверение о повышении квалификации</h3>
+                    <i id="icon-faq4" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
+                </button>
+                <div id="content-faq4" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
+                    <p class="text-sm text-gray-700 leading-relaxed">
+                        Нужно выполнить итоговую аттестацию до дня окончания программы. Доступ откроется за неделю до финала.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Вопрос 5 -->
+            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
+                <button onclick="toggleAccordion('faq5')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
+                    <h3 class="text-[#ff6b00] text-base font-bold">Способы получения документов</h3>
+                    <i id="icon-faq5" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
+                </button>
+                <div id="content-faq5" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
+                    <ul class="list-disc list-inside text-sm text-gray-700 leading-relaxed space-y-1">
+                        <li>Забрать лично</li>
+                        <li>Почта России</li>
+                        <li>Внутрибанковская экспедиция</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+        tg.BackButton.hide();
+
+        function toggleAccordion(id) {
+            tg.HapticFeedback.selectionChanged();
+            const content = document.getElementById('content-' + id);
+            const icon = document.getElementById('icon-' + id);
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                icon.classList.add('rotate-180');
+            } else {
+                content.classList.add('hidden');
+                icon.classList.remove('rotate-180');
+            }
+        }
+    </script>
+</body>
+</html>
