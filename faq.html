@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>FAQ</title>
+    <title>Часто задаваемые вопросы</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -11,133 +11,210 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { background-color: #F2F2F2; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-        .fade-in { animation: fadeIn 0.3s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- ШАПКА --- */
+        .header-bg {
+            background-color: #2D2B84;
+            /* Другая картинка для фона (офис/команда) */
+            background-image: url('img/Hero.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+        /* .header-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+        }
 
-        .rotate-180 { transform: rotate(180deg); }
+        /* Анимация аккордеона */
+        .accordion-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.open {
+            max-height: 600px; 
+            opacity: 1;
+        }
+        .rotate-icon {
+            transition: transform 0.3s;
+        }
+        .rotate-icon.open {
+            transform: rotate(180deg);
+        }
+
+        /* Маркеры списка */
+        .custom-list li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 13px;
+            color: #4B5563;
+        }
+        .custom-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0.5rem;
+            color: #ED6B30; /* Оранжевые точки */
+            font-weight: bold;
+        }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="bg-[#F2F2F2] text-[#1F2937] pb-10">
 
-    <div class="max-w-md mx-auto min-h-screen flex flex-col fade-in">
+    <!-- ШАПКА -->
+    <div class="relative w-full rounded-b-[30px] shadow-lg mb-6 overflow-hidden">
+        <div class="header-bg absolute inset-0 z-0"></div>
+        <div class="header-overlay absolute inset-0 z-0"></div>
 
-        <!-- ================= ШАПКА С КАРТИНКОЙ ================= -->
-        <div class="h-52 w-full p-6 flex flex-col justify-between relative overflow-hidden shadow-lg rounded-b-[24px]">
-
-            <!-- 1. ФОНОВАЯ КАРТИНКА -->
-            <!-- Замените src на свою картинку -->
-            <img src="img/" 
-                 class="absolute inset-0 w-full h-full object-cover z-0" 
-                 alt="Header Background">
-
-            <!-- 2. ЗАТЕМНЕНИЕ (Чтобы текст читался) -->
-            <!-- Синий полупрозрачный слой + Градиент снизу -->
-            <div class="absolute inset-0 bg-indigo-900/40 mix-blend-multiply z-0"></div>
-            <div class="absolute inset-0 bg-gradient-to-t from-[#2e2a85] via-transparent to-black/20 z-0"></div>
-
-            <!-- 3. КОНТЕНТ (Кнопка и Заголовок) -->
-            <div class="relative z-10">
-                <a href="index.html" class="bg-[#ff6b00] w-10 h-10 rounded-[10px] flex items-center justify-center text-white active:scale-95 transition shadow-md">
+        <div class="relative z-10 px-5 pt-6 pb-8">
+            <div class="flex justify-between items-center mb-6">
+                <!-- Кнопка НАЗАД -->
+                <a href="index.html" class="w-10 h-10 bg-[#ED6B30] rounded-[6px] flex items-center justify-center text-white active:scale-95 transition shadow-sm">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
+                <!-- Бейдж -->
+                <span class="px-3 py-1 bg-black/20 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-wider text-white/90 border border-white/10">
+                    Инфо
+                </span>
             </div>
-
-            <h1 class="text-white text-[28px] font-bold leading-tight relative z-10 drop-shadow-md">
-                Ответы на часто<br>задаваемые вопросы
-            </h1>
+            <div>
+                <h1 class="text-[22px] font-bold leading-tight text-white mb-2 drop-shadow-md">
+                    Часто задаваемые<br>вопросы
+                </h1>
+                <p class="text-white/80 text-sm">
+                    Все, что нужно знать об обучении и сертификатах
+                </p>
+            </div>
         </div>
-        <!-- ===================================================== -->
+    </div>
 
-        <!-- СПИСОК ВОПРОСОВ -->
-        <div class="px-3 mt-4 space-y-3 pb-10">
+    <!-- КОНТЕНТ (Аккордеон) -->
+    <div class="max-w-md mx-auto px-4 space-y-4">
 
-            <!-- Вопрос 1 -->
-            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
-                <button onclick="toggleAccordion('faq1')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
-                    <h3 class="text-[#ff6b00] text-base font-bold">Как быстро проверяют задания?</h3>
-                    <i id="icon-faq1" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
-                </button>
-                <div id="content-faq1" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
-                    <p class="text-sm text-gray-700 leading-relaxed">В течение 3 рабочих дней с момента сдачи ваше задание проверит преподаватель.</p>
+        <!-- ВОПРОС 1: Сертификаты (Синий) -->
+        <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
+            <button onclick="toggleAccordion(1)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+                <div>
+                    <i class="fa-solid fa-graduation-cap text-[#2563EB] text-lg"></i>
                 </div>
-            </div>
-
-            <!-- Вопрос 2 -->
-            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
-                <button onclick="toggleAccordion('faq2')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
-                    <h3 class="text-[#ff6b00] text-base font-bold">Контакты для связи</h3>
-                    <i id="icon-faq2" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
-                </button>
-                <div id="content-faq2" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
-                    <p class="text-sm text-gray-700 leading-relaxed mb-3">
-                        <a href="mailto:data_mentor@psb-academy.ru" class="text-blue-600 font-medium underline">data_mentor@psb-academy.ru</a><br>
-                        <span class="text-gray-500 text-xs">Почта для вопросов преподавателю.</span>
-                    </p>
-                    <p class="text-sm text-gray-700 leading-relaxed">
-                        <a href="mailto:CDME@psb-academy.ru" class="text-blue-600 font-medium underline">CDME@psb-academy.ru</a><br>
-                        <span class="text-gray-500 text-xs">Организационные вопросы.</span>
-                    </p>
+                <div class="flex-1">
+                    <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Как получить сертификат?</h3>
                 </div>
-            </div>
-
-            <!-- Вопрос 3 -->
-            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
-                <button onclick="toggleAccordion('faq3')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
-                    <h3 class="text-[#ff6b00] text-base font-bold">Программа курса</h3>
-                    <i id="icon-faq3" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
-                </button>
-                <div id="content-faq3" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
-                    <p class="text-sm text-gray-700 leading-relaxed">Здесь будет размещено подробное описание модулей программы.</p>
+                <div class="mt-1">
+                    <i id="icon-1" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
                 </div>
-            </div>
+            </button>
 
-            <!-- Вопрос 4 -->
-            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
-                <button onclick="toggleAccordion('faq4')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
-                    <h3 class="text-[#ff6b00] text-base font-bold">Удостоверение о повышении квалификации</h3>
-                    <i id="icon-faq4" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
-                </button>
-                <div id="content-faq4" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
-                    <p class="text-sm text-gray-700 leading-relaxed">
-                        Нужно выполнить итоговую аттестацию до дня окончания программы. Доступ откроется за неделю до финала.
-                    </p>
-                </div>
-            </div>
-
-            <!-- Вопрос 5 -->
-            <div class="bg-white rounded-[12px] shadow-sm overflow-hidden">
-                <button onclick="toggleAccordion('faq5')" class="w-full p-4 flex justify-between items-center text-left active:bg-gray-50">
-                    <h3 class="text-[#ff6b00] text-base font-bold">Способы получения документов</h3>
-                    <i id="icon-faq5" class="fa-solid fa-chevron-down text-gray-400 text-sm transition-transform duration-300"></i>
-                </button>
-                <div id="content-faq5" class="hidden px-4 pb-5 border-t border-gray-100 pt-3">
-                    <ul class="list-disc list-inside text-sm text-gray-700 leading-relaxed space-y-1">
-                        <li>Забрать лично</li>
-                        <li>Почта России</li>
-                        <li>Внутрибанковская экспедиция</li>
+            <div id="content-1" class="accordion-content bg-white px-5 pb-6">
+                <p class="text-[13px] text-gray-600 leading-relaxed mb-3">
+                    Сертификат о прохождении обучения формируется автоматически после успешной сдачи итогового тестирования.
+                </p>
+                <div class="bg-blue-50 rounded-xl p-3 border border-blue-100">
+                    <p class="text-[12px] text-blue-800 font-medium mb-1">Где найти:</p>
+                    <ul class="custom-list">
+                        <li>Зайдите в раздел <b>«Личный кабинет»</b></li>
+                        <li>Выберите вкладку <b>«Мои достижения»</b></li>
+                        <li>Нажмите кнопку <b>«Скачать PDF»</b></li>
                     </ul>
                 </div>
             </div>
-
         </div>
+
+        <!-- ВОПРОС 2: Сроки доступа (Оранжевый) -->
+        <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
+            <button onclick="toggleAccordion(2)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+                <div>
+                    <i class="fa-regular fa-clock text-[#EA580C] text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Сколько времени доступен курс?</h3>
+                </div>
+                <div>
+                    <i id="icon-2" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+                </div>
+            </button>
+            <div id="content-2" class="accordion-content bg-white px-5 pb-6">
+                <p class="text-[13px] text-gray-600 leading-relaxed">
+                    Доступ к материалам курса сохраняется в течение <b>12 месяцев</b> с момента старта обучения. Вы можете возвращаться к урокам и видеозаписям в любое удобное время, даже после получения сертификата.
+                </p>
+            </div>
+        </div>
+
+        <!-- ВОПРОС 3: Технические проблемы (Красный) -->
+        <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
+            <button onclick="toggleAccordion(3)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+                <div>
+                    <i class="fa-solid fa-bug text-[#DC2626] text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Видео не загружается, что делать?</h3>
+                </div>
+                <div>
+                    <i id="icon-3" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+                </div>
+            </button>
+            <div id="content-3" class="accordion-content bg-white px-5 pb-6">
+                <p class="text-[13px] text-gray-600 leading-relaxed mb-2">
+                    В большинстве случаев проблема связана с нестабильным интернетом или блокировщиками рекламы.
+                </p>
+                <ul class="custom-list">
+                    <li>Отключите VPN, если он включен.</li>
+                    <li>Попробуйте открыть урок в браузере Google Chrome.</li>
+                    <li>Очистите кэш браузера.</li>
+                </ul>
+                <div class="mt-3 text-[12px] text-gray-400">
+                    Если не помогло — напишите нам в чат поддержки.
+                </div>
+            </div>
+        </div>
+
+         <!-- ВОПРОС 4: Документы (Фиолетовый) -->
+         <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
+            <button onclick="toggleAccordion(4)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+                <div>
+                    <i class="fa-solid fa-file-contract text-[#7C3AED] text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Нужны закрывающие документы</h3>
+                </div>
+                <div>
+                    <i id="icon-4" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+                </div>
+            </button>
+            <div id="content-4" class="accordion-content bg-white px-5 pb-6">
+                <p class="text-[13px] text-gray-600 leading-relaxed">
+                    Акты выполненных работ формируются автоматически 5-го числа месяца, следующего за месяцем покупки. Они отправляются на email, указанный при регистрации, а также доступны в системе ЭДО.
+                </p>
+            </div>
+        </div>
+
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
-        tg.BackButton.hide();
+
+        // 1. Открываем первый элемент при загрузке
+        document.getElementById('content-1').classList.add('open');
+        document.getElementById('icon-1').classList.add('open');
 
         function toggleAccordion(id) {
-            tg.HapticFeedback.selectionChanged();
-            const content = document.getElementById('content-' + id);
-            const icon = document.getElementById('icon-' + id);
+            const clickedContent = document.getElementById('content-' + id);
+            const clickedIcon = document.getElementById('icon-' + id);
 
-            if (content.classList.contains('hidden')) {
-                content.classList.remove('hidden');
-                icon.classList.add('rotate-180');
-            } else {
-                content.classList.add('hidden');
-                icon.classList.remove('rotate-180');
+            // Запоминаем состояние (был ли он открыт)
+            const isAlreadyOpen = clickedContent.classList.contains('open');
+
+            // 2. Закрываем ВСЕ вкладки
+            const allContents = document.querySelectorAll('.accordion-content');
+            const allIcons = document.querySelectorAll('.rotate-icon');
+
+            allContents.forEach(el => el.classList.remove('open'));
+            allIcons.forEach(el => el.classList.remove('open'));
+
+            // 3. Если нажатый НЕ был открыт — открываем его
+            if (!isAlreadyOpen) {
+                clickedContent.classList.add('open');
+                clickedIcon.classList.add('open');
             }
         }
     </script>

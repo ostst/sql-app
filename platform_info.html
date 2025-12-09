@@ -11,142 +11,229 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
         body { background-color: #F2F2F2; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
 
-        /* Анимация поворота стрелочки */
-        details[open] summary .fa-chevron-down {
+        /* --- ШАПКА --- */
+        .header-bg {
+            background-color: #2D2B84;
+            /* Картинка фона */
+            background-image: url('img/Hero.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+       /*  .header-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7));
+        }
+
+        /* Анимация аккордеона */
+        .accordion-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.open {
+            max-height: 1000px; 
+            opacity: 1;
+        }
+        .rotate-icon {
+            transition: transform 0.3s;
+        }
+        .rotate-icon.open {
             transform: rotate(180deg);
         }
-        details summary::-webkit-details-marker {
-            display: none;
+
+        /* Стили для квадратиков с цифрами */
+        .step-num {
+            width: 24px;
+            min-width: 24px;
+            height: 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 2px;
         }
+        .step-blue { background-color: #E0E7FF; color: #2D2B84; }
+        .step-green { background-color: #DCFCE7; color: #166534; }
     </style>
 </head>
-<body class="text-gray-800 pb-10">
+<body class="bg-[#F2F2F2] text-[#1F2937] pb-10">
 
-    <div class="max-w-md mx-auto min-h-screen flex flex-col">
+    <!-- ШАПКА -->
+    <div class="relative w-full rounded-b-[30px] shadow-lg mb-6 overflow-hidden">
+        <div class="header-bg absolute inset-0 z-0"></div>
+        <div class="header-overlay absolute inset-0 z-0"></div>
 
-        <!-- ШАПКА С КНОПКОЙ НАЗАД -->
-        <div class="pt-6 pb-6 px-4 bg-white rounded-b-[30px] shadow-sm sticky top-0 z-50 mb-6">
-            <div class="flex items-center gap-4">
-                <a href="index.html" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center text-gray-600 active:scale-95 transition">
+        <div class="relative z-10 px-5 pt-6 pb-8">
+            <div class="flex justify-between items-center mb-6">
+                <!-- Кнопка НАЗАД -->
+                <a href="index.html" class="w-10 h-10 bg-[#ED6B30] rounded-[6px] flex items-center justify-center text-white active:scale-95 transition shadow-sm">
                     <i class="fa-solid fa-arrow-left"></i>
                 </a>
-                <h1 class="text-xl font-bold">Образовательная<br>платформа</h1>
+                <!-- Бейдж -->
+                <span class="px-3 py-1 bg-black/20 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-wider text-white/90 border border-white/10">
+                    Помощь
+                </span>
+            </div>
+            <div>
+                <h1 class="text-[22px] font-bold leading-tight text-white mb-2 drop-shadow-md">
+                    Образовательная<br>платформа
+                </h1>
+                <p class="text-white/80 text-sm">
+                    Инструкции по входу и навигации
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- КОНТЕНТ -->
+    <div class="max-w-md mx-auto px-4 space-y-4">
+
+        <!-- КАРТОЧКА 1 -->
+        <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
+            <button onclick="toggleAccordion(1)" class="w-full p-5 flex items-start gap-4 text-left active:bg-gray-50 transition">
+                <div class="mt-0.5">
+                    <i class="fa-solid fa-lock text-[#EF4444] text-lg"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Не могу зайти на образовательную платформу</h3>
+                </div>
+                <div class="mt-1">
+                    <i id="icon-1" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+                </div>
+            </button>
+
+            <div id="content-1" class="accordion-content bg-white px-5 pb-6">
+                <p class="text-[13px] text-gray-800 mb-4 font-medium">Если у вас не получается войти, попробуйте следующие шаги:</p>
+                <div class="space-y-4">
+                    <div class="flex gap-3">
+                        <div class="step-num step-blue">1</div>
+                        <div class="text-[13px] text-gray-600 leading-relaxed">
+                            Проверьте, правильно ли введены логин и пароль при входе в личный кабинет на сайте: <br>
+                            <a href="#" class="text-blue-600 font-medium underline decoration-blue-200 decoration-2 underline-offset-2">psb-academy.ru/auth</a>
+                            <div class="text-[11px] text-gray-400 mt-1 leading-tight">(убедитесь, что раскладка клавиатуры верная и отключен CapsLock).</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="step-num step-blue">2</div>
+                        <div class="text-[13px] text-gray-600 leading-relaxed">
+                            Если забыли пароль — используйте кнопку <b>«Забыли пароль?»</b> на странице входа и восстановите доступ через email.
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="step-num step-blue">3</div>
+                        <div class="text-[13px] text-gray-600 leading-relaxed">
+                            Очистите кэш и куки браузера или попробуйте открыть платформу в режиме <b>инкогнито</b> либо в другом браузере.
+                        </div>
+                    </div>
+                     <div class="flex gap-3">
+                        <div class="step-num step-blue">4</div>
+                        <div class="text-[13px] text-gray-600 leading-relaxed">
+                            Попробуйте зайти с другого устройства или сети (например, с телефона через мобильный интернет).
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="step-num step-blue">5</div>
+                        <div class="text-[13px] text-gray-600 leading-relaxed">
+                            Если сложности сохраняются, свяжитесь с куратором обучения. 
+                            <button class="inline-block mt-1.5 bg-gray-100 px-3 py-1.5 rounded-lg text-xs font-bold text-gray-800 hover:bg-gray-200 transition">Написать куратору</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <div class="px-4 space-y-4">
-
-            <!-- ВОПРОС 1: Не могу зайти -->
-            <details class="group bg-white rounded-[24px] shadow-sm overflow-hidden" open>
-                <summary class="list-none flex justify-between items-center p-5 cursor-pointer bg-white active:bg-gray-50 transition">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-red-50 text-red-500 flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-lock"></i>
-                        </div>
-                        <span class="font-bold text-sm leading-tight">Не могу зайти на<br>образовательную платформу</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
-                </summary>
-
-                <div class="px-5 pb-6 text-sm text-gray-600 space-y-3 border-t border-gray-100 pt-4">
-                    <p class="font-medium text-gray-800">Если у вас не получается войти, попробуйте следующие шаги:</p>
-
-                    <ol class="list-none space-y-4">
-                        <li class="flex gap-3">
-                            <span class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded flex items-center justify-center text-xs shrink-0">1</span>
-                            <div>
-                                Проверьте, правильно ли введены логин и пароль при входе в личный кабинет на сайте:
-                                <a href="https://psb-academy.ru/auth?redirect_url=%2Fcontacts" class="text-blue-600 break-all underline decoration-blue-200 mt-1 block">psb-academy.ru/auth</a>
-                                <span class="text-xs text-gray-400 block mt-1">(убедитесь, что раскладка клавиатуры верная и отключен CapsLock).</span>
-                            </div>
-                        </li>
-
-                        <li class="flex gap-3">
-                            <span class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded flex items-center justify-center text-xs shrink-0">2</span>
-                            <div>
-                                Если забыли пароль — используйте кнопку <b>«Забыли пароль?»</b> на странице входа и восстановите доступ через email.
-                            </div>
-                        </li>
-
-                        <li class="flex gap-3">
-                            <span class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded flex items-center justify-center text-xs shrink-0">3</span>
-                            <div>
-                                Очистите кэш и куки браузера или попробуйте открыть платформу в режиме <b>инкогнито</b> либо в другом браузере.
-                            </div>
-                        </li>
-
-                        <li class="flex gap-3">
-                            <span class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded flex items-center justify-center text-xs shrink-0">4</span>
-                            <div>
-                                Попробуйте зайти с другого устройства или сети (например, с телефона через мобильный интернет).
-                            </div>
-                        </li>
-
-                        <li class="flex gap-3">
-                            <span class="bg-indigo-100 text-indigo-700 font-bold w-6 h-6 rounded flex items-center justify-center text-xs shrink-0">5</span>
-                            <div>
-                                Если сложности сохраняются, свяжитесь с куратором обучения.
-                                <a href="https://t.me/fun_sh4" class="inline-block mt-2 text-xs font-bold bg-gray-100 text-gray-700 px-3 py-1.5 rounded-lg">Написать куратору</a>
-                            </div>
-                        </li>
-                    </ol>
+        <!-- КАРТОЧКА 2 -->
+        <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
+            <button onclick="toggleAccordion(2)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+                <div class="">
+                    <i class="fa-solid fa-play text-[#22C55E] text-lg"></i>
                 </div>
-            </details>
-
-            <!-- ВОПРОС 2: Как начать обучение -->
-            <details class="group bg-white rounded-[24px] shadow-sm overflow-hidden">
-                <summary class="list-none flex justify-between items-center p-5 cursor-pointer bg-white active:bg-gray-50 transition">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-green-50 text-green-600 flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-play"></i>
-                        </div>
-                        <span class="font-bold text-sm">Как начать обучение</span>
-                    </div>
-                    <i class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-300"></i>
-                </summary>
-
-                <div class="px-5 pb-6 text-sm text-gray-600 space-y-3 border-t border-gray-100 pt-4">
-                    <p>После входа в систему вы попадаете в раздел <b>«Библиотека курсов»</b>. Здесь собраны курсы предлагаемые к изучению.</p>
-                    <p class="font-medium text-gray-800">Чтобы открыть именно ваш курс необходимо:</p>
-
-                    <ol class="list-none space-y-3">
-                        <li class="flex gap-3">
-                            <span class="bg-green-100 text-green-700 font-bold w-6 h-6 rounded flex items-center justify-center text-xs shrink-0">1</span>
-                            <div>Перейти в раздел <b>«Мое обучение»</b>, далее раздел <b>«Программы и курсы»</b>.</div>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="bg-green-100 text-green-700 font-bold w-6 h-6 rounded flex items-center justify-center text-xs shrink-0">2</span>
-                            <div>Нажать на название курса, на который вы записаны.</div>
-                        </li>
-                        <li class="flex gap-3">
-                            <span class="bg-green-100 text-green-700 font-bold w-6 h-6 rounded flex items-center justify-center text-xs shrink-0">3</span>
-                            <div>В открывшемся окне выберите первый урок или нажмите кнопку <b>«Начать курс»</b>.</div>
-                        </li>
-                    </ol>
-
-                    <!-- Желтая плашка ВАЖНО -->
-                    <div class="bg-amber-50 rounded-xl p-4 border border-amber-100 mt-4">
-                        <div class="flex items-center gap-2 text-amber-600 font-bold mb-2">
-                            <i class="fa-regular fa-lightbulb"></i> Важно:
-                        </div>
-                        <ul class="list-disc pl-4 space-y-1 text-xs text-amber-900/80">
-                            <li>В <b>Библиотеке</b> вы видите весь каталог курсов Академии ПСБ.</li>
-                            <li>В разделе <b>«Мое обучение»</b> — только те курсы, на которые вы записаны.</li>
-                        </ul>
-                    </div>
-
-                    <p class="text-xs bg-gray-50 p-3 rounded-lg mt-2">
-                        Если вы не нашли курс в «Текущих», убедитесь, что регистрация на него завершена. При проблемах напишите в поддержку, указав название курса и ваш email/логин.
-                    </p>
+                <div class="flex-1">
+                    <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Как начать обучение</h3>
                 </div>
-            </details>
+                <div>
+                    <i id="icon-2" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+                </div>
+            </button>
+            <div id="content-2" class="accordion-content bg-white px-5 pb-6">
+                <p class="text-[13px] text-gray-600 mb-4 leading-relaxed">
+                    После входа в систему вы попадаете в раздел <b>«Библиотека курсов»</b>. Здесь собраны курсы предлагаемые к изучению.
+                </p>
+                <p class="text-[13px] text-gray-800 font-medium mb-3">Чтобы открыть именно ваш курс необходимо:</p>
 
+                <div class="space-y-3 mb-5">
+                    <div class="flex gap-3">
+                        <div class="step-num step-green">1</div>
+                        <div class="text-[13px] text-gray-600 leading-relaxed">
+                            Перейти в раздел <b>«Мое обучение»</b>, далее раздел <b>«Программы и курсы»</b>.
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="step-num step-green">2</div>
+                        <div class="text-[13px] text-gray-600 leading-relaxed">
+                            Нажать на название курса, на который вы записаны.
+                        </div>
+                    </div>
+                    <div class="flex gap-3">
+                        <div class="step-num step-green">3</div>
+                        <div class="text-[13px] text-gray-600 leading-relaxed">
+                            В открывшемся окне выберите первый урок или нажмите кнопку <b>«Начать курс»</b>.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Блок ВАЖНО -->
+                <div class="bg-[#FFFBEB] rounded-xl p-4 border border-[#FEF3C7] mb-4">
+                    <div class="flex items-center gap-2 mb-2">
+                        <i class="fa-regular fa-lightbulb text-[#D97706] text-sm"></i>
+                        <span class="text-[#D97706] font-bold text-sm">Важно:</span>
+                    </div>
+                    <ul class="list-disc pl-5 text-[12px] text-gray-700 space-y-1">
+                        <li>В <b>Библиотеке</b> вы видите весь каталог курсов Академии ПСБ.</li>
+                        <li>В разделе <b>«Мое обучение»</b> — только те курсы, на которые вы записаны.</li>
+                    </ul>
+                </div>
+
+                <div class="bg-gray-100 rounded-xl p-3 text-[11px] text-gray-500 leading-tight">
+                    Если вы не нашли курс в «Текущих», убедитесь, что регистрация на него завершена. При проблемах напишите в поддержку.
+                </div>
+            </div>
         </div>
+
     </div>
 
     <script>
         const tg = window.Telegram.WebApp;
         tg.expand();
+
+        // Сразу открываем первую, чтобы при загрузке было красиво
+        // Вторая останется закрытой
+        document.getElementById('content-1').classList.add('open');
+        document.getElementById('icon-1').classList.add('open');
+
+        function toggleAccordion(id) {
+            const clickedContent = document.getElementById('content-' + id);
+            const clickedIcon = document.getElementById('icon-' + id);
+
+            // Запоминаем состояние нажатого элемента ДО закрытия всех
+            const isAlreadyOpen = clickedContent.classList.contains('open');
+
+            // 1. Сначала закрываем ВСЕ открытые элементы
+            const allContents = document.querySelectorAll('.accordion-content');
+            const allIcons = document.querySelectorAll('.rotate-icon');
+
+            allContents.forEach(el => el.classList.remove('open'));
+            allIcons.forEach(el => el.classList.remove('open'));
+
+            // 2. Если нажатый элемент был закрыт - открываем его
+            // (Если он был открыт, то мы его закрыли на шаге 1 и ничего делать не надо)
+            if (!isAlreadyOpen) {
+                clickedContent.classList.add('open');
+                clickedIcon.classList.add('open');
+            }
+        }
     </script>
 </body>
 </html>
