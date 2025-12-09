@@ -18,22 +18,132 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        // --- 1. ПЕРЕМЕННЫЕ ---
+        const upcomingContainer = document.getElementById('content-upcoming');
+        const pastContainer = document.getElementById('content-past');
+
+        const tabUpcoming = document.getElementById('tab-upcoming');
+        const tabPast = document.getElementById('tab-past');
+
+        const now = new Date();
+
+        // --- 2. СОРТИРОВКА КАРТОЧЕК ПО ДАТЕ ---
+        const cards = upcomingContainer.querySelectorAll('.event-card');
+
+        cards.forEach(card => {
+            const dateStr = card.getAttribute('data-date');
+            if (!dateStr) return;
+
+            const eventDate = new Date(dateStr);
+
+            // Если событие прошло
+            if (eventDate < now) {
+                // Переносим в контейнер "Прошедшие"
+                pastContainer.appendChild(card);
+
+                // МЕНЯЕМ СТИЛИ НА АРХИВНЫЕ
+                card.classList.add('opacity-80'); // Прозрачность
+
+                // Меняем кнопку на серую
+                const btn = card.querySelector('.action-btn');
+                if (btn) {
+                    btn.classList.remove('bg-[#ff6b00]');
+                    btn.classList.add('bg-gray-400');
+                }
+
+                // Меняем иконку на Play
+                const icon = card.querySelector('.action-icon');
+                if (icon) {
+                    icon.classList.remove('fa-arrow-right');
+                    icon.classList.add('fa-play', 'pl-0.5');
+                }
+
+                // Фото ч/б
+                const img = card.querySelector('.speaker-img');
+                if (img) img.classList.add('grayscale');
+
+                // Добавляем текст "Архив"
+                const dateLabel = card.querySelector('.date-label');
+                if (dateLabel) dateLabel.innerHTML += ' <span class="text-gray-500">• Архив</span>';
+            }
+        });
+
+        // --- 3. ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ТАБОВ ---
+
+        // Функция для активации таба "Предстоящие"
+        function showUpcoming() {
+            // Переключаем стили кнопок
+            tabUpcoming.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+            tabUpcoming.classList.remove('text-gray-500');
+
+            tabPast.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+            tabPast.classList.add('text-gray-500');
+
+            // Показываем/Скрываем контейнеры
+            upcomingContainer.classList.remove('hidden');
+            upcomingContainer.classList.add('flex');
+
+            pastContainer.classList.add('hidden');
+            pastContainer.classList.remove('flex');
+        }
+
+        // Функция для активации таба "Прошедшие"
+        function showPast() {
+            // Переключаем стили кнопок
+            tabPast.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
+            tabPast.classList.remove('text-gray-500');
+
+            tabUpcoming.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
+            tabUpcoming.classList.add('text-gray-500');
+
+            // Показываем/Скрываем контейнеры
+            pastContainer.classList.remove('hidden');
+            pastContainer.classList.add('flex');
+
+            upcomingContainer.classList.add('hidden');
+            upcomingContainer.classList.remove('flex');
+        }
+
+        // Вешаем события на клик
+        tabUpcoming.addEventListener('click', showUpcoming);
+        tabPast.addEventListener('click', showPast);
+
+        // По умолчанию запускаем "Предстоящие" (чтобы скрыть архив сразу после загрузки)
+        showUpcoming();
+    });
+</script>
 <body class="pb-10 text-gray-800">
     <div class="max-w-md mx-auto p-3 fade-in">
 
         <!-- ГЛАВНЫЙ БАННЕР -->
-        <div class="hero-gradient rounded-[12px] p-5 text-white mb-3 relative overflow-hidden shadow-lg">
-            <div class="absolute top-0 right-0 w-32 h-32 bg-purple-500 blur-[50px] opacity-40"></div>
-            <div class="relative z-10">
-                <h1 class="text-xl font-bold leading-tight mb-2">Программа повышения квалификации Бизнес-анализ для начинающих</h1>
-                <p class="text-xs text-indigo-200 mb-6">Даты: 15.12.2025-02.02.2025</p>
-                <!-- Ссылка для кнопки "Начать учиться" (оставил как было, или нужно поменять?) -->
-                <button class="w-full bg-white rounded-[12px] p-1.5 pl-4 flex justify-between items-center group active:scale-95 transition-transform">
-                    <span class="text-gray-900 font-semibold text-sm">Начать учиться</span>
-                    <div class="bg-[#ff6b00] w-9 h-9 rounded-[8px] flex items-center justify-center text-white"><i class="fa-solid fa-arrow-right"></i></div>
-                </button>
-            </div>
+        <!-- ГЛАВНЫЙ БАННЕР -->
+<div class="relative w-full rounded-[20px] shadow-lg mb-6 overflow-hidden min-h-[180px] flex flex-col justify-end group">
+
+    <!-- 1. ФОНОВАЯ КАРТИНКА -->
+    <!-- Вставьте свою ссылку внутрь url('...') -->
+    <div class="absolute inset-0 bg-cover bg-center z-0 transition-transform duration-700 group-hover:scale-105" 
+         style="background-image: url('img/hero\ menu.png');">
+    </div>
+
+    <!-- 2. ЗАТЕМНЕНИЕ (Оверлей) -->
+    <!-- Это нужно, чтобы текст был читаемым поверх любой картинки -->
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent z-0"></div>
+
+    <!-- 3. КОНТЕНТ (Текст) -->
+    <div class="relative z-10 p-5">
+        <h1 class="text-[22px] font-bold leading-tight text-white mb-2 drop-shadow-md">
+            Программа повышения квалификации Бизнес-анализ для начинающих
+        </h1>
+        <div class="flex items-center gap-2 text-white/80">
+            <i class="fa-regular fa-calendar text-xs"></i>
+            <p class="text-xs font-medium">15.12.2025 – 02.02.2025</p>
         </div>
+    </div>
+</div>
+
 
         <!-- ТАБЫ -->
         <div class="flex bg-gray-200/50 p-1 rounded-[12px] mb-3 relative">
@@ -41,58 +151,130 @@
             <button id="tab-past" onclick="switchTab('past')" class="flex-1 py-2 rounded-[8px] text-xs font-medium text-gray-500 text-center hover:bg-black/5 transition-all duration-200">Прошедшее событие</button>
         </div>
 
-        <!-- КАРУСЕЛЬ -->
-        <div id="content-upcoming" class="flex overflow-x-auto gap-3 hide-scrollbar mb-3 pb-2 w-full">
-            <button class="min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left active:scale-95 transition-transform">
-                <div class="w-full flex justify-between items-start mb-2">
-                    <span class="text-[10px] text-gray-400 font-medium mt-1">15 декабря 2025 18:30 • МСК</span>
-                    <div class="bg-[#ff6b00] text-white w-6 h-6 rounded flex items-center justify-center text-[10px]"><i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-                <h3 class="font-bold text-lg mb-2">Вебинар-знакомство</h3>
-                <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-3">Время – невосполнимый ресурс.</p>
-                <div class="mt-auto flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gray-200 rounded-[8px]"></div>
-                    <div><div class="text-xs font-bold">Фёдор Самородов</div><div class="text-[10px] text-gray-400">Регалии</div></div>
-                </div>
-            </button>
-            <button class="min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left active:scale-95 transition-transform">
-                <div class="w-full flex justify-between items-start mb-2">
-                    <span class="text-[10px] text-gray-400 font-medium mt-1">13 января 2026 18:00 • МСК</span>
-                    <div class="bg-[#ff6b00] text-white w-6 h-6 rounded flex items-center justify-center text-[10px]"><i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-                <h3 class="font-bold text-lg mb-2">Бизнес-анализ старт</h3>
-                <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-2">Вебинар с преподавателем №1</p>
-                <div class="mt-auto flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gray-200 rounded-[8px]"></div>
-                    <div><div class="text-xs font-bold">Фёдор Самородов</div><div class="text-[10px] text-gray-400">Преподаватель</div></div>
-                </div>
-            </button>
+       <!-- КАРУСЕЛЬ ПРЕДСТОЯЩИХ (СЮДА ПИШЕМ ВСЕ КАРТОЧКИ) -->
+<!-- Важно: укажите дату в формате data-date="Год-Месяц-ДеньTЧасы:Минуты" -->
+
+<div id="content-upcoming" class="flex overflow-x-auto gap-3 hide-scrollbar mb-3 pb-2 w-full">
+
+    <!-- 1. КАРТОЧКА БУДУЩЕГО (Останется здесь) -->
+    <!-- Дата: 15 декабря 2025 -->
+    <div class="event-card min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left transition-all duration-300" 
+         data-date="2025-12-15T18:30">
+
+        <div class="w-full flex justify-between items-start mb-2">
+            <!-- Текст даты для людей -->
+            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">9 декабря 2025 16:40 • МСК</span>
+
+            <a href="https://mts.link" target="_blank" class="action-btn bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm">
+                <i class="action-icon fa-solid fa-play"></i>
+            </a>
         </div>
 
-        <div id="content-past" class="hidden overflow-x-auto gap-3 hide-scrollbar mb-3 pb-2 w-full">
-            <button class="min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left active:scale-95 transition-transform opacity-70">
-                <div class="w-full flex justify-between items-start mb-2">
-                    <span class="text-[10px] text-gray-400 font-medium">01 ноября 2024 • Архив</span>
-                    <div class="bg-gray-400 text-white w-6 h-6 rounded flex items-center justify-center text-[10px]"><i class="fa-solid fa-check"></i></div>
-                </div>
-                <h3 class="font-bold text-lg mb-2 text-gray-600">Запись вебинара</h3>
-                <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-2">Смотреть запись.</p>
-                <div class="mt-auto flex items-center gap-3">
-                    <div class="w-10 h-10 bg-gray-300 rounded-[8px] grayscale"></div>
-                    <div><div class="text-xs font-bold text-gray-500">Архив</div></div>
-                </div>
-            </button>
+        <h3 class="font-bold text-lg mb-2">Вебинар-знакомство</h3>
+        
+        <div class="mt-auto flex items-center gap-3">
+            <img src="img/IMG_5815 1.png" 
+                 class="speaker-img w-10 h-10 rounded-[8px] object-cover bg-gray-200" alt="Спикер">
+            <div>
+                <div class="text-xs font-bold">Фёдор Самородов</div>
+                <div class="text-[10px] text-gray-400">Преподаватель</div>
+            </div>
         </div>
+    </div>
+     <!-- 2 КАРТОЧКА БУДУЩЕГО (Останется здесь) -->
+    <!-- Дата: 15 декабря 2025 -->
+    <div class="event-card min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left transition-all duration-300" 
+         data-date="2025-12-15T18:30">
+
+        <div class="w-full flex justify-between items-start mb-2">
+            <!-- Текст даты для людей -->
+            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">15 декабря 2025 18:30 - 19:30 • МСК</span>
+
+            <a href="https://mts.link" target="_blank" class="action-btn bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm">
+                <i class="action-icon fa-solid fa-play"></i>
+            </a>
+        </div>
+
+        <h3 class="font-bold text-lg mb-2">Бизнес-анализ для начинающих:</h3>
+        <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-3">Вебинар с преподавателем №1</p>
+
+        <div class="mt-auto flex items-center gap-3">
+            <img src="img/IMG_5815 1.png" 
+                 class="speaker-img w-10 h-10 rounded-[8px] object-cover bg-gray-200" alt="Спикер">
+            <div>
+                <div class="text-xs font-bold">Фёдор Самородов</div>
+                <div class="text-[10px] text-gray-400">Преподаватель</div>
+            </div>
+        </div>
+    </div>
+     <!-- 3. КАРТОЧКА БУДУЩЕГО (Останется здесь) -->
+    <!-- Дата: 15 декабря 2025 -->
+    <div class="event-card min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left transition-all duration-300" 
+         data-date="2025-12-15T18:30">
+
+        <div class="w-full flex justify-between items-start mb-2">
+            <!-- Текст даты для людей -->
+            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">15 декабря 2025 8:30 - 19:30 • МСК</span>
+
+            <a href="https://mts.link" target="_blank" class="action-btn bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm">
+                <i class="action-icon fa-solid fa-play"></i>
+            </a>
+        </div>
+
+        <h3 class="font-bold text-lg mb-2">Бизнес-анализ для начинающих:</h3>
+        <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-3">Вебинар с преподавателем №2</p>
+
+        <div class="mt-auto flex items-center gap-3">
+            <img src="img/IMG_5815 1.png" 
+                 class="speaker-img w-10 h-10 rounded-[8px] object-cover bg-gray-200" alt="Спикер">
+            <div>
+                <div class="text-xs font-bold">Фёдор Самородов</div>
+                <div class="text-[10px] text-gray-400">Преподаватель</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 2. КАРТОЧКА ПРОШЛОГО (Скрипт перекинет её в архив) -->
+    <!-- Дата: 01 января 2023 (специально старая для теста) -->
+    <div class="event-card min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left transition-all duration-300" 
+         data-date="2023-01-01T18:00">
+
+        <div class="w-full flex justify-between items-start mb-2">
+            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">01 января 2023 • МСК</span>
+
+            <a href="https://mts.link" target="_blank" class="action-btn bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm">
+                <i class="action-icon fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+
+        <h3 class="font-bold text-lg mb-2">Старый вебинар</h3>
+        <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-2">Это мероприятие уже прошло.</p>
+
+        <div class="mt-auto flex items-center gap-3">
+             <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop" 
+             class="speaker-img w-10 h-10 rounded-[8px] object-cover bg-gray-200" alt="Спикер">
+            <div>
+                <div class="text-xs font-bold">Мария Иванова</div>
+                <div class="text-[10px] text-gray-400">Преподаватель</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- КАРУСЕЛЬ ПРОШЕДШИХ (ПУСТАЯ - сюда скрипт кидает карточки) -->
+<div id="content-past" class="hidden overflow-x-auto gap-3 hide-scrollbar mb-3 pb-2 w-full">
+    <!-- Сюда попадут старые карточки -->
+</div>
 
         <!-- ПРОМО БАННЕР (ЛИЧНЫЙ КАБИНЕТ) -->
         <div class="relative rounded-[12px] overflow-hidden h-64 mb-3 shadow-md bg-gray-800">
-            <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" class="absolute inset-0 w-full h-full object-cover opacity-60" alt="bg">
+            <img src="img/hero_lk.png" class="absolute inset-0 w-full h-full object-cover opacity-100" alt="bg">
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
             <div class="relative z-10 p-5 h-full flex flex-col justify-between">
                 <!-- ПУНКТ 4: Переименовали заголовок -->
                 <h3 class="text-white font-bold text-lg leading-tight w-3/4">Личный кабинет</h3>
                 <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-[12px] p-3">
-                    <p class="text-[10px] text-gray-200 mb-3">До 17 августа 2023</p>
                     <div class="flex gap-2">
                         <!-- ПУНКТ 4: Кнопка "Мое обучение" ведет на psb-academy -->
                         <a href="https://psb-academy.ru/account/my-education" class="bg-white text-black text-xs font-bold py-2 px-4 rounded-[8px] flex-1 text-center flex items-center justify-center">Мое обучение</a>
