@@ -20,100 +20,84 @@
 </head>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        // --- 1. ПЕРЕМЕННЫЕ ---
-        const upcomingContainer = document.getElementById('content-upcoming');
-        const pastContainer = document.getElementById('content-past');
+document.addEventListener("DOMContentLoaded", function() {
 
-        const tabUpcoming = document.getElementById('tab-upcoming');
-        const tabPast = document.getElementById('tab-past');
+    // НАСТРОЙКИ
+    // Сколько минут ждать после начала, прежде чем убрать в архив
+    // 60 минут вебинар + 20 минут задержка = 80 минут
+    const minutesDelay = 80; 
 
-        const now = new Date();
+    const upcomingContainer = document.querySelector('#upcoming-events .row'); // Ваш контейнер будущих
+    const pastContainer = document.querySelector('#past-events .row');         // Ваш контейнер прошедших
+    const cards = document.querySelectorAll('.event-card');
 
-        // --- 2. СОРТИРОВКА КАРТОЧЕК ПО ДАТЕ ---
-        const cards = upcomingContainer.querySelectorAll('.event-card');
+    // Получаем текущее время
+    const now = new Date();
 
-        cards.forEach(card => {
-            const dateStr = card.getAttribute('data-date');
-            if (!dateStr) return;
+    // Если нужно протестировать будущее (например, вы в 2024, а хотите проверить 2025):
+    // const now = new Date('2025-12-09T19:51:00'); // Раскомментируйте для теста
 
-            const eventDate = new Date(dateStr);
+    console.log("Текущее время на сайте:", now);
 
-            // Если событие прошло
-            if (eventDate < now) {
-                // Переносим в контейнер "Прошедшие"
-                pastContainer.appendChild(card);
+    // Массивы для сортировки
+    let upcomingList = [];
+    let pastList = [];
 
-                // МЕНЯЕМ СТИЛИ НА АРХИВНЫЕ
-                card.classList.add('opacity-80'); // Прозрачность
+    cards.forEach(card => {
+        const dateStr = card.getAttribute('data-date');
+        if (!dateStr) return;
 
-                // Меняем кнопку на серую
-                const btn = card.querySelector('.action-btn');
-                if (btn) {
-                    btn.classList.remove('bg-[#ff6b00]');
-                    btn.classList.add('bg-gray-400');
-                }
+        // Время начала (например, 18:30)
+        const startDate = new Date(dateStr);
 
-                // Меняем иконку на Play
-                const icon = card.querySelector('.action-icon');
-                if (icon) {
-                    icon.classList.remove('fa-arrow-right');
-                    icon.classList.add('fa-play', 'pl-0.5');
-                }
+        // Время переноса в архив (Начало + 80 минут)
+        // 18:30 + 1ч 20мин = 19:50
+        const moveDate = new Date(startDate.getTime() + (minutesDelay * 60000));
 
-                // Фото ч/б
-                const img = card.querySelector('.speaker-img');
-                if (img) img.classList.add('grayscale');
+        const btn = card.querySelector('.btn'); // Находим кнопку внутри карточки
 
-                // Добавляем текст "Архив"
-                const dateLabel = card.querySelector('.date-label');
-                if (dateLabel) dateLabel.innerHTML += ' <span class="text-gray-500">• Архив</span>';
+        if (now > moveDate) {
+            // ---> УСЛОВИЕ ВЫПОЛНЕНО: ВРЕМЯ ПЕРЕНОСА ПРОШЛО
+            // Добавляем в массив прошедших
+            pastList.push({ element: card, date: startDate });
+
+            // Визуальные изменения для архива
+            card.classList.add('past-event'); // Можно добавить стили (например, серый фон)
+
+            // Меняем кнопку
+            if (btn) {
+                btn.textContent = 'Смотреть запись';
+                btn.classList.remove('btn-primary'); // Убираем старый цвет
+                btn.classList.add('btn-secondary');  // Добавляем новый (серый или другой)
+                // btn.href = '#'; // Если нужно поменять ссылку, раскомментируйте
             }
-        });
 
-        // --- 3. ЛОГИКА ПЕРЕКЛЮЧЕНИЯ ТАБОВ ---
+        } else {
+            // ---> ЕЩЕ РАНО: ВЕБИНАР ИДЕТ ИЛИ БУДЕТ
+            // Добавляем в массив будущих
+            upcomingList.push({ element: card, date: startDate });
 
-        // Функция для активации таба "Предстоящие"
-        function showUpcoming() {
-            // Переключаем стили кнопок
-            tabUpcoming.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
-            tabUpcoming.classList.remove('text-gray-500');
-
-            tabPast.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
-            tabPast.classList.add('text-gray-500');
-
-            // Показываем/Скрываем контейнеры
-            upcomingContainer.classList.remove('hidden');
-            upcomingContainer.classList.add('flex');
-
-            pastContainer.classList.add('hidden');
-            pastContainer.classList.remove('flex');
+            // Убеждаемся, что кнопка нормальная (на случай ошибок)
+            card.classList.remove('past-event');
+            if (btn) {
+               // btn.textContent = 'Записаться'; // Можно вернуть текст, если нужно
+            }
         }
-
-        // Функция для активации таба "Прошедшие"
-        function showPast() {
-            // Переключаем стили кнопок
-            tabPast.classList.add('bg-white', 'shadow-sm', 'text-gray-900');
-            tabPast.classList.remove('text-gray-500');
-
-            tabUpcoming.classList.remove('bg-white', 'shadow-sm', 'text-gray-900');
-            tabUpcoming.classList.add('text-gray-500');
-
-            // Показываем/Скрываем контейнеры
-            pastContainer.classList.remove('hidden');
-            pastContainer.classList.add('flex');
-
-            upcomingContainer.classList.add('hidden');
-            upcomingContainer.classList.remove('flex');
-        }
-
-        // Вешаем события на клик
-        tabUpcoming.addEventListener('click', showUpcoming);
-        tabPast.addEventListener('click', showPast);
-
-        // По умолчанию запускаем "Предстоящие" (чтобы скрыть архив сразу после загрузки)
-        showUpcoming();
     });
+
+    // --- СОРТИРОВКА И ВСТАВКА ОБРАТНО В HTML ---
+
+    // 1. Сортируем будущие: Сначала ближайшие (по возрастанию даты)
+    upcomingList.sort((a, b) => a.date - b.date);
+    upcomingList.forEach(item => upcomingContainer.appendChild(item.element));
+
+    // 2. Сортируем прошедшие: Сначала недавние (по убыванию даты)
+    // Чтобы вебинар, который закончился только что, был первым в списке архива
+    pastList.sort((a, b) => b.date - a.date);
+    pastList.forEach(item => pastContainer.appendChild(item.element));
+
+    console.log(`Обработано: ${upcomingList.length} будущих, ${pastList.length} прошедших.`);
+});
 </script>
 <body class="pb-10 text-gray-800">
     <div class="max-w-md mx-auto p-3 fade-in">
@@ -159,11 +143,11 @@
     <!-- 1. КАРТОЧКА БУДУЩЕГО (Останется здесь) -->
     <!-- Дата: 15 декабря 2025 -->
     <div class="event-card min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left transition-all duration-300" 
-         data-date="2025-12-15T18:30">
+         data-date="2025-12-09T17:36">
 
         <div class="w-full flex justify-between items-start mb-2">
             <!-- Текст даты для людей -->
-            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">9 декабря 2025 16:40 • МСК</span>
+            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">15 декабря 2025 18:00 - 18:30 • МСК</span>
 
             <a href="https://mts.link" target="_blank" class="action-btn bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm">
                 <i class="action-icon fa-solid fa-play"></i>
@@ -184,11 +168,11 @@
      <!-- 2 КАРТОЧКА БУДУЩЕГО (Останется здесь) -->
     <!-- Дата: 15 декабря 2025 -->
     <div class="event-card min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left transition-all duration-300" 
-         data-date="2025-12-15T18:30">
+         data-date="2026-01-13T18:00">
 
         <div class="w-full flex justify-between items-start mb-2">
             <!-- Текст даты для людей -->
-            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">15 декабря 2025 18:30 - 19:30 • МСК</span>
+            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">13 января 2026 18:00 - 19:30 • МСК</span>
 
             <a href="https://mts.link" target="_blank" class="action-btn bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm">
                 <i class="action-icon fa-solid fa-play"></i>
@@ -210,11 +194,11 @@
      <!-- 3. КАРТОЧКА БУДУЩЕГО (Останется здесь) -->
     <!-- Дата: 15 декабря 2025 -->
     <div class="event-card min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left transition-all duration-300" 
-         data-date="2025-12-15T18:30">
+         data-date="2026-01-28T18:00">
 
         <div class="w-full flex justify-between items-start mb-2">
             <!-- Текст даты для людей -->
-            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">15 декабря 2025 8:30 - 19:30 • МСК</span>
+            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">28 января 2025 18:00 - 19:30 • МСК</span>
 
             <a href="https://mts.link" target="_blank" class="action-btn bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm">
                 <i class="action-icon fa-solid fa-play"></i>
@@ -234,31 +218,7 @@
         </div>
     </div>
 
-    <!-- 2. КАРТОЧКА ПРОШЛОГО (Скрипт перекинет её в архив) -->
-    <!-- Дата: 01 января 2023 (специально старая для теста) -->
-    <div class="event-card min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left transition-all duration-300" 
-         data-date="2023-01-01T18:00">
-
-        <div class="w-full flex justify-between items-start mb-2">
-            <span class="date-label text-[10px] text-gray-400 font-medium mt-1">01 января 2023 • МСК</span>
-
-            <a href="https://mts.link" target="_blank" class="action-btn bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm">
-                <i class="action-icon fa-solid fa-arrow-right"></i>
-            </a>
-        </div>
-
-        <h3 class="font-bold text-lg mb-2">Старый вебинар</h3>
-        <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-2">Это мероприятие уже прошло.</p>
-
-        <div class="mt-auto flex items-center gap-3">
-             <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&auto=format&fit=crop" 
-             class="speaker-img w-10 h-10 rounded-[8px] object-cover bg-gray-200" alt="Спикер">
-            <div>
-                <div class="text-xs font-bold">Мария Иванова</div>
-                <div class="text-[10px] text-gray-400">Преподаватель</div>
-            </div>
-        </div>
-    </div>
+   
 
 </div>
 
@@ -284,41 +244,102 @@
             </div>
         </div>
 
-       <!-- СЕТКА МЕНЮ -->
 <div class="grid grid-cols-2 gap-3">
 
     <!-- 1. Информация о программе -->
-    <a href="program_info.html" class="bg-[#2D2B84] p-4 rounded-[12px] h-32 relative overflow-hidden text-left active:scale-95 transition flex flex-col justify-between shadow-sm hover:opacity-95">
-        <p class="text-white font-bold text-sm leading-tight relative z-10">Информация<br>о программе</p>
-        <div class="absolute -bottom-1 -right-1 text-5xl grayscale-[0.3]">🤖</div>
+    <a href="program_info.html" 
+       class="group relative h-32 rounded-[16px] overflow-hidden active:scale-95 transition hover:shadow-lg bg-cover bg-center"
+       style="background-image: url('img/Сategory\ сard.png');">
+
+        <!-- Затемнение -->
+        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors z-0"></div>
+
+        <!-- ТЕКСТ (теперь сверху слева) -->
+        <div class="absolute top-0 left-0 p-3 w-full z-10">
+            <p class="text-white font-bold text-sm leading-tight">Информация<br>о программе</p>
+        </div>
+
+        <!-- Оранжевый квадрат (сверху справа) -->
+        <div class="absolute top-2 right-2 z-20 bg-[#FF6600] w-8 h-8 flex items-center justify-center rounded-lg shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4 text-white -rotate-45">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+        </div>
     </a>
 
     <!-- 2. Программа курса -->
-    <a href="course_program.html" class="bg-[#2D2B84] p-4 rounded-[12px] h-32 relative overflow-hidden text-left active:scale-95 transition flex flex-col justify-between shadow-sm hover:opacity-95">
-        <p class="text-white font-bold text-sm leading-tight relative z-10">Программа<br>курса</p>
-        <div class="absolute -bottom-1 -right-1 text-5xl grayscale-[0.3]">🚀</div>
+    <a href="course_program.html" 
+       class="group relative h-32 rounded-[16px] overflow-hidden active:scale-95 transition hover:shadow-lg bg-cover bg-center"
+       style="background-image: url('img/Сategory\ сard\ 2.png');">
+
+        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors z-0"></div>
+
+        <div class="absolute top-0 left-0 p-3 w-full z-10">
+            <p class="text-white font-bold text-sm leading-tight">Программа<br>курса</p>
+        </div>
+
+        <div class="absolute top-2 right-2 z-20 bg-[#FF6600] w-8 h-8 flex items-center justify-center rounded-lg shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4 text-white -rotate-45">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+        </div>
     </a>
 
     <!-- 3. Связаться с куратором -->
-    <a href="https://t.me/fun_sh4" class="bg-[#2D2B84] p-4 rounded-[12px] h-32 relative overflow-hidden text-left active:scale-95 transition flex flex-col justify-between shadow-sm hover:opacity-95">
-        <p class="text-white font-bold text-sm leading-tight relative z-10">Связаться с<br>куратором</p>
-        <div class="absolute -bottom-1 -right-1 text-5xl grayscale-[0.3] opacity-90">💬</div>
+    <a href="https://t.me/fun_sh4" 
+       class="group relative h-32 rounded-[16px] overflow-hidden active:scale-95 transition hover:shadow-lg bg-cover bg-center"
+       style="background-image: url('img/Сategory\ сard\ 3.png');">
+
+        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors z-0"></div>
+
+        <div class="absolute top-0 left-0 p-3 w-full z-10">
+            <p class="text-white font-bold text-sm leading-tight">Связаться с<br>куратором</p>
+        </div>
+
+        <div class="absolute top-2 right-2 z-20 bg-[#FF6600] w-8 h-8 flex items-center justify-center rounded-lg shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4 text-white -rotate-45">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+        </div>
     </a>
 
-    <!-- 4. Обратная связь (ТЕПЕРЬ ТУТ) -->
-    <a href="platform_info.html" class="bg-[#2D2B84] p-4 rounded-[12px] h-32 relative overflow-hidden text-left active:scale-95 transition flex flex-col justify-between shadow-sm hover:opacity-95">
-        <p class="text-white font-bold text-sm leading-tight relative z-10">Обратная<br>связь</p>
-        <div class="absolute bottom-0 right-0 text-5xl opacity-90 grayscale-[0.3] leading-none -mb-1 -mr-1">✉️</div>
+    <!-- 4. Обратная связь -->
+    <a href="platform_info.html" 
+       class="group relative h-32 rounded-[16px] overflow-hidden active:scale-95 transition hover:shadow-lg bg-cover bg-center"
+       style="background-image: url('img/Сategory\ сard\ 4.png');">
+
+        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors z-0"></div>
+
+        <div class="absolute top-0 left-0 p-3 w-full z-10">
+            <p class="text-white font-bold text-sm leading-tight">Обратная<br>связь</p>
+        </div>
+
+        <div class="absolute top-2 right-2 z-20 bg-[#FF6600] w-8 h-8 flex items-center justify-center rounded-lg shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4 text-white -rotate-45">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+        </div>
     </a>
 
-    <!-- 5. FAQ (ТЕПЕРЬ ШИРОКАЯ СНИЗУ) -->
-    <a href="faq.html" class="col-span-2 bg-[#2D2B84] p-5 rounded-[12px] h-28 relative overflow-hidden text-left active:scale-95 transition flex items-end shadow-sm hover:opacity-95">
-        <p class="text-white font-bold text-sm leading-tight relative z-10 mb-1">Ответы на<br>частые вопросы</p>
-        <div class="absolute -bottom-2 -right-2 text-6xl font-bold text-red-500/80 opacity-90 font-serif">?</div>
+    <!-- 5. FAQ (Широкая снизу) -->
+    <a href="faq.html" 
+       class="col-span-2 group relative h-28 rounded-[16px] overflow-hidden active:scale-95 transition hover:shadow-lg bg-cover bg-center"
+       style="background-image: url('img/Сategory\ сard\ 5.png');">
+
+        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors z-0"></div>
+
+        <div class="absolute top-0 left-0 p-4 w-full z-10">
+            <p class="text-white font-bold text-sm leading-tight">Ответы на<br>частые вопросы</p>
+        </div>
+
+        <div class="absolute top-2 right-2 z-20 bg-[#FF6600] w-8 h-8 flex items-center justify-center rounded-lg shadow-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-4 h-4 text-white -rotate-45">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+        </div>
     </a>
 
 </div>
-
 
 
     <script>
