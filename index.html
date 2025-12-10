@@ -224,25 +224,132 @@ document.addEventListener("DOMContentLoaded", function() {
 
 <!-- КАРУСЕЛЬ ПРОШЕДШИХ (ПУСТАЯ - сюда скрипт кидает карточки) -->
 <div id="content-past" class="hidden overflow-x-auto gap-3 hide-scrollbar mb-3 pb-2 w-full">
+    <!-- КАРТОЧКА АРХИВА 1 -->
+<!-- <div class="min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left">
+
+    <div class="w-full flex justify-between items-start mb-2">
+        <span class="text-[10px] text-gray-400 font-medium mt-1">15 декабря 2025 • Архив</span>
+
+        <!-- ССЫЛКА НА ЗАПИСЬ (Сделал оранжевой) -->
+      <!--   <a href="https://mts.link" target="_blank" class="bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm hover:bg-[#e56000]">
+            <!-- Иконка Play -->
+          <!--   <i class="fa-solid fa-play"></i> 
+        </a>
+    </div>
+
+    <h3 class="font-bold text-lg mb-2 text-gray-600">Запись вебинара </h3>
+    <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-2">Тема: Вебинар-знакомство.</p>
+
+    <div class="mt-auto flex items-center gap-3">
+        <!-- ФОТО (черно-белое) -->
+      <!--   <img src="img/IMG_5815 1.png" 
+             class="w-10 h-10 rounded-[8px] object-cover grayscale bg-gray-200" alt="Спикер">
+
+        <div>
+            <div class="text-xs font-bold text-gray-500">Архив</div>
+            <div class="text-[10px] text-gray-400">Прошедшее</div>
+        </div>
+    </div>
+</div>
+
+ <!-- КАРТОЧКА АРХИВА 2 -->
+<!-- <div class="min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left">
+
+    <div class="w-full flex justify-between items-start mb-2">
+        <span class="text-[10px] text-gray-400 font-medium mt-1">13 января 2026 • Архив</span>
+
+        <!-- ССЫЛКА НА ЗАПИСЬ (Сделал оранжевой) -->
+       <!--  <a href="https://mts.link" target="_blank" class="bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm hover:bg-[#e56000]">
+            <!-- Иконка Play -->
+          <!--   <i class="fa-solid fa-play"></i> 
+        </a>
+    </div>
+
+    <h3 class="font-bold text-lg mb-2 text-gray-600">Запись вебинара</h3>
+    <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-2">Бизнес-анализ для начинающих: Вебинар с преподавателем №1.</p>
+
+    <div class="mt-auto flex items-center gap-3">
+        <!-- ФОТО (черно-белое) -->
+     <!--    <img src="img/IMG_5815 1.png" 
+             class="w-10 h-10 rounded-[8px] object-cover grayscale bg-gray-200" alt="Спикер">
+
+        <div>
+            <div class="text-xs font-bold text-gray-500">Архив</div>
+            <div class="text-[10px] text-gray-400">Прошедшее</div>
+        </div>
+    </div>
+</div>
+
+ <!-- КАРТОЧКА АРХИВА 3 -->
+<!-- <div class="min-w-[85%] shrink-0 bg-white p-4 rounded-[12px] relative shadow-sm flex flex-col text-left">
+
+    <div class="w-full flex justify-between items-start mb-2">
+        <span class="text-[10px] text-gray-400 font-medium mt-1">28 января 2026 • Архив</span>
+
+        <!-- ССЫЛКА НА ЗАПИСЬ (Сделал оранжевой) -->
+        <!-- <a href="https://mts.link" target="_blank" class="bg-[#ff6b00] text-white w-7 h-7 rounded flex items-center justify-center text-[10px] active:scale-90 transition-transform shadow-sm hover:bg-[#e56000]">
+            <!-- Иконка Play -->
+         <!--    <i class="fa-solid fa-play"></i> 
+        </a>
+    </div>
+
+    <h3 class="font-bold text-lg mb-2 text-gray-600">Запись вебинара</h3>
+    <p class="text-[11px] text-gray-500 leading-snug mb-4 line-clamp-2">Бизнес-анализ для начинающих: Вебинар с преподавателем №2.</p>
+
+    <div class="mt-auto flex items-center gap-3">
+        <!-- ФОТО (черно-белое) -->
+      <!--   <img src="img/IMG_5815 1.png" 
+             class="w-10 h-10 rounded-[8px] object-cover grayscale bg-gray-200" alt="Спикер">
+
+        <div>
+            <div class="text-xs font-bold text-gray-500">Архив</div>
+            <div class="text-[10px] text-gray-400">Прошедшее</div>
+        </div>
+    </div>
+</div>
+
     <!-- Сюда попадут старые карточки -->
 </div>
 
-        <!-- ПРОМО БАННЕР (ЛИЧНЫЙ КАБИНЕТ) -->
-        <div class="relative rounded-[12px] overflow-hidden h-64 mb-3 shadow-md bg-gray-800">
-            <img src="img/hero_lk.png" class="absolute inset-0 w-full h-full object-cover opacity-100" alt="bg">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-            <div class="relative z-10 p-5 h-full flex flex-col justify-between">
-                <!-- ПУНКТ 4: Переименовали заголовок -->
-                <h3 class="text-white font-bold text-lg leading-tight w-3/4">Личный кабинет</h3>
-                <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-[12px] p-3">
-                    <div class="flex gap-2">
-                        <!-- ПУНКТ 4: Кнопка "Мое обучение" ведет на psb-academy -->
-                        <a href="https://psb-academy.ru/account/my-education" class="bg-white text-black text-xs font-bold py-2 px-4 rounded-[8px] flex-1 text-center flex items-center justify-center">Мое обучение</a>
-                        <a href="https://psb-academy.ru/account/my-education" class="bg-white w-8 h-8 rounded-[8px] flex items-center justify-center text-black text-xs"><i class="fa-solid fa-arrow-right"></i></a>
-                    </div>
-                </div>
+    <!-- 4. ЛИЧНЫЙ КАБИНЕТ (Компактный + Внешняя ссылка) -->
+<div class="relative rounded-[16px] overflow-hidden h-44 mb-3 shadow-sm bg-gray-800">
+
+    <!-- Фон -->
+    <img src="img/hero_lk.png" class="absolute inset-0 w-full h-full object-cover opacity-100" alt="bg">
+    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+    <!-- Контент -->
+    <div class="relative z-10 p-4 h-full flex flex-col justify-between">
+
+        <!-- Заголовок -->
+        <h3 class="text-white font-bold text-[17px] leading-tight w-3/4 drop-shadow-md">Личный кабинет</h3>
+
+        <!-- Блок кнопок -->
+        <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-[12px] p-2">
+            <div class="flex gap-2">
+
+                <!-- Кнопка "Мое обучение" -->
+                <!-- target="_blank" + скрипт для открытия вне Telegram -->
+                <a href="https://psb-academy.ru/account/my-education" 
+                   target="_blank"
+                   onclick="if(window.Telegram && window.Telegram.WebApp) { Telegram.WebApp.openLink(this.href); return false; }"
+                   class="bg-white text-gray-900 text-xs font-bold py-2.5 px-4 rounded-[8px] flex-1 text-center flex items-center justify-center hover:bg-gray-100 transition shadow-sm">
+                   Мое обучение
+                </a>
+
+                <!-- Кнопка-стрелка -->
+                <a href="https://psb-academy.ru/account/my-education" 
+                   target="_blank"
+                   onclick="if(window.Telegram && window.Telegram.WebApp) { Telegram.WebApp.openLink(this.href); return false; }"
+                   class="bg-white w-9 h-9 rounded-[8px] flex items-center justify-center text-gray-900 text-xs hover:bg-gray-100 transition shadow-sm">
+                   <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
             </div>
         </div>
+    </div>
+</div>
+
 
 <div class="grid grid-cols-2 gap-3">
 
@@ -311,7 +418,7 @@ document.addEventListener("DOMContentLoaded", function() {
         <div class="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors z-0"></div>
 
         <div class="absolute top-0 left-0 p-3 w-full z-10">
-            <p class="text-white font-bold text-sm leading-tight">Обратная<br>связь</p>
+            <p class="text-white font-bold text-sm leading-tight">Образовательная <br>платформа</p>
         </div>
 
         <div class="absolute top-2 right-2 z-20 bg-[#FF6600] w-8 h-8 flex items-center justify-center rounded-lg shadow-sm">

@@ -90,55 +90,153 @@
     <!-- КОНТЕНТ (Аккордеон) -->
     <div class="max-w-md mx-auto px-4 space-y-4">
 
-        <!-- ВОПРОС 1: Сертификаты (Синий) -->
-        <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
-            <button onclick="toggleAccordion(1)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
-                <div>
-                    <i class="fa-solid fa-graduation-cap text-[#2563EB] text-lg"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Как получить сертификат?</h3>
-                </div>
-                <div class="mt-1">
-                    <i id="icon-1" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
-                </div>
-            </button>
+      <!-- БЛОК 1: Условия получения удостоверения -->
+<div class="bg-white rounded-[20px] shadow-sm overflow-hidden mt-4">
+    <button onclick="toggleAccordion(4)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+        <div>
+            <i class="fa-solid fa-graduation-cap text-[#7C3AED] text-lg w-6 text-center"></i>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Условия получения удостоверения</h3>
+        </div>
+        <div class="mt-1">
+            <i id="icon-4" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+        </div>
+    </button>
 
-            <div id="content-1" class="accordion-content bg-white px-5 pb-6">
-                <p class="text-[13px] text-gray-600 leading-relaxed mb-3">
-                    Сертификат о прохождении обучения формируется автоматически после успешной сдачи итогового тестирования.
-                </p>
-                <div class="bg-blue-50 rounded-xl p-3 border border-blue-100">
-                    <p class="text-[12px] text-blue-800 font-medium mb-1">Где найти:</p>
-                    <ul class="custom-list">
-                        <li>Зайдите в раздел <b>«Личный кабинет»</b></li>
-                        <li>Выберите вкладку <b>«Мои достижения»</b></li>
-                        <li>Нажмите кнопку <b>«Скачать PDF»</b></li>
-                    </ul>
-                </div>
-            </div>
+    <!-- ВАЖНО: Здесь только px-5 (отступы по бокам), без сдвига текста вправо -->
+    <div id="content-4" class="accordion-content bg-white px-5 pb-6">
+        <p class="text-[13px] text-gray-600 leading-relaxed mb-3">
+            Для получения удостоверения о повышении квалификации необходимо <b>обязательно выполнить итоговую аттестацию</b> в срок до дня окончания программы.
+        </p>
+        <div class="bg-purple-50 rounded-xl p-3 border border-purple-100">
+            <p class="text-[12px] text-purple-900 leading-relaxed">
+                Доступ к прохождению итоговой аттестации откроется <b>за неделю</b> до окончания программы.
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- БЛОК 2: Как забрать удостоверение -->
+<div class="bg-white rounded-[20px] shadow-sm overflow-hidden mt-3">
+    <button onclick="toggleAccordion(5)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+        <div>
+            <i class="fa-solid fa-file-contract text-[#0D9488] text-lg w-6 text-center"></i>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Как забрать удостоверение?</h3>
+        </div>
+        <div class="mt-1">
+            <i id="icon-5" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+        </div>
+    </button>
+
+    <!-- ВАЖНО: Текст начинается слева, как на скриншоте -->
+    <div id="content-5" class="accordion-content bg-white px-5 pb-6">
+        <p class="text-[13px] text-gray-600 leading-relaxed mb-3">
+            Для получения удостоверения о повышении квалификации необходимо заполнить опрос в личном кабинете на платформе академии.
+        </p>
+
+        <div class="bg-teal-50 rounded-xl p-3 border border-teal-100 mb-3">
+            <p class="text-[12px] text-teal-900 font-bold mb-2">Есть 3 способа получения:</p>
+            <ul class="space-y-1 pl-4 list-decimal text-[12px] text-teal-900">
+                <li>Забираете лично</li>
+                <li>Отправка почтой России</li>
+                <li>Отправка через экспедицию (внутрибанковская почта)</li>
+            </ul>
         </div>
 
-        <!-- ВОПРОС 2: Сроки доступа (Оранжевый) -->
-        <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
-            <button onclick="toggleAccordion(2)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
-                <div>
-                    <i class="fa-regular fa-clock text-[#EA580C] text-lg"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Сколько времени доступен курс?</h3>
-                </div>
-                <div>
-                    <i id="icon-2" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
-                </div>
-            </button>
-            <div id="content-2" class="accordion-content bg-white px-5 pb-6">
-                <p class="text-[13px] text-gray-600 leading-relaxed">
-                    Доступ к материалам курса сохраняется в течение <b>12 месяцев</b> с момента старта обучения. Вы можете возвращаться к урокам и видеозаписям в любое удобное время, даже после получения сертификата.
-                </p>
-            </div>
-        </div>
+        <p class="text-[11px] text-gray-400 italic leading-tight border-l-2 border-gray-200 pl-3">
+            В случае выбора 2 или 3 вариантов необходимо заполнить и прикрепить на платформе заявление о почтовом отправлении.
+        </p>
+    </div>
+</div>
 
+<!-- ВОПРОС 2: Наши контакты (Синий) -->
+<div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
+    <button onclick="toggleAccordion(2)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+        <div>
+            <!-- Иконка конверта -->
+            <i class="fa-solid fa-envelope text-[#2563EB] text-lg w-5 text-center"></i>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Наши контакты</h3>
+        </div>
+        <div>
+            <i id="icon-2" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+        </div>
+    </button>
+
+    <!-- Контент -->
+    <div id="content-2" class="accordion-content bg-white px-5 pb-6">
+        <div class="text-[13px] text-gray-600 leading-relaxed space-y-4">
+
+            <!-- Первая почта -->
+            <div>
+                <a href="mailto:data_mentor@psb-academy.ru" class="text-[#2563EB] font-bold underline">data_mentor@psb-academy.ru</a>
+                <span> – почта, на которую вы можете писать вопросы преподавателю по ходу обучения.</span>
+            </div>
+
+            <!-- Вторая почта -->
+            <div>
+                <a href="mailto:CDME@psb-academy.ru" class="text-[#2563EB] font-bold underline">CDME@psb-academy.ru</a>
+                <span> – почта Центра развития обучения по управлению данными, вы можете задавать вопросы организационного и технического характера.</span>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ВОПРОС: Сроки доступа (Оранжевый) -->
+<div class="bg-white rounded-[20px] shadow-sm overflow-hidden mt-3">
+    <button onclick="toggleAccordion(6)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+        <div>
+            <!-- Иконка: Часы (Оранжевая) -->
+            <i class="fa-regular fa-clock text-[#EA580C] text-lg w-5 text-center"></i>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Сколько времени доступен курс?</h3>
+        </div>
+        <div>
+            <i id="icon-6" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+        </div>
+    </button>
+
+    <div id="content-6" class="accordion-content bg-white px-5 pb-6">
+        <p class="text-[13px] text-gray-600 leading-relaxed">
+            Доступ к материалам курса сохраняется в течение <b>12 месяцев</b> с момента старта обучения. Вы можете возвращаться к урокам и видеозаписям в любое удобное время, даже после получения сертификата.
+        </p>
+    </div>
+</div>
+<!-- БЛОК: Программа обучения (с кнопкой) -->
+<div class="bg-white rounded-[20px] shadow-sm overflow-hidden mt-3">
+    <!-- Если этот блок идет 7-м по счету, оставляем (7), если нет — поменяйте цифру -->
+    <button onclick="toggleAccordion(7)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+        <div>
+            <!-- Иконка списка (Зеленая) -->
+            <i class="fa-solid fa-list-check text-[#059669] text-lg w-5 text-center"></i>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Программа обучения</h3>
+        </div>
+        <div>
+            <i id="icon-7" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+        </div>
+    </button>
+
+    <div id="content-7" class="accordion-content bg-white px-5 pb-6">
+        <p class="text-[13px] text-gray-600 leading-relaxed mb-4">
+            Курс состоит из теоретических модулей и практических заданий. Мы подготовили подробный файл, где расписаны все темы уроков, домашние задания и сроки сдачи.
+        </p>
+
+        <!-- КНОПКА ПЕРЕХОДА -->
+        <!-- Вставьте вашу ссылку вместо # в href="..." -->
+        <a href="course_program.html" target="_blank" class="block w-full text-center bg-[#059669] hover:bg-[#047857] text-white text-[13px] font-bold py-3 px-4 rounded-xl transition shadow-md shadow-green-100">
+            Смотреть полную программу
+            <i class="fa-solid fa-arrow-right ml-2 text-[11px]"></i>
+        </a>
+    </div>
+</div>
         <!-- ВОПРОС 3: Технические проблемы (Красный) -->
         <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
             <button onclick="toggleAccordion(3)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
@@ -167,25 +265,7 @@
             </div>
         </div>
 
-         <!-- ВОПРОС 4: Документы (Фиолетовый) -->
-         <div class="bg-white rounded-[20px] shadow-sm overflow-hidden">
-            <button onclick="toggleAccordion(4)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
-                <div>
-                    <i class="fa-solid fa-file-contract text-[#7C3AED] text-lg"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Нужны закрывающие документы</h3>
-                </div>
-                <div>
-                    <i id="icon-4" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
-                </div>
-            </button>
-            <div id="content-4" class="accordion-content bg-white px-5 pb-6">
-                <p class="text-[13px] text-gray-600 leading-relaxed">
-                    Акты выполненных работ формируются автоматически 5-го числа месяца, следующего за месяцем покупки. Они отправляются на email, указанный при регистрации, а также доступны в системе ЭДО.
-                </p>
-            </div>
-        </div>
+        
 
     </div>
 
