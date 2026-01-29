@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Информация о программе</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { background-color: #F2F2F2; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+
+        /* --- ШАПКА --- */
+        .header-bg {
+            background-color: #2D2B84;
+            /* Картинка: Ноутбук/учеба */
+            background-image: url('img/Hero.png'); 
+            background-size: cover;
+            background-position: center;
+        }
+        /*.header-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.8));
+        }
+
+        /* Анимация аккордеона */
+        .accordion-content {
+            transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        .accordion-content.open {
+            max-height: 800px; 
+            opacity: 1;
+        }
+        .rotate-icon {
+            transition: transform 0.3s;
+        }
+        .rotate-icon.open {
+            transform: rotate(180deg);
+        }
+
+        /* Стили для списка модулей */
+        .module-item {
+            padding-left: 1rem;
+            border-left: 2px solid #E5E7EB;
+            margin-bottom: 12px;
+        }
+        .module-item h4 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1F2937;
+        }
+        .module-item p {
+            font-size: 11px;
+            color: #6B7280;
+            margin-top: 2px;
+        }
+    </style>
+</head>
+<body class="bg-[#F2F2F2] text-[#1F2937] pb-10">
+
+    <!-- ШАПКА -->
+    <div class="relative w-full rounded-b-[30px] shadow-lg mb-6 overflow-hidden">
+        <div class="header-bg absolute inset-0 z-0"></div>
+        <div class="header-overlay absolute inset-0 z-0"></div>
+
+        <div class="relative z-10 px-5 pt-6 pb-8">
+            <div class="flex justify-between items-center mb-6">
+                <!-- Кнопка НАЗАД -->
+                <a href="index.html" class="w-10 h-10 bg-[#ED6B30] rounded-[6px] flex items-center justify-center text-white active:scale-95 transition shadow-sm">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </a>
+                <!-- Бейдж -->
+                <span class="px-3 py-1 bg-black/20 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-wider text-white/90 border border-white/10">
+                    Курс
+                </span>
+            </div>
+            <div>
+                <h1 class="text-[22px] font-bold leading-tight text-white mb-2 drop-shadow-md">
+                    Информация<br>о программе
+                </h1>
+                <p class="text-white/80 text-sm">
+                    Цели, структура и преподаватели
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- КОНТЕНТ -->
+    <div class="max-w-md mx-auto px-4 space-y-4">
+
+      <!-- 1. ЦЕЛИ ПРОГРАММЫ (Обновленный красивый блок) -->
+<div class="bg-white rounded-[20px] shadow-sm overflow-hidden mt-3">
+
+    <!-- Шапка -->
+    <button onclick="toggleAccordion(10)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+        <!-- Иконка в кружочке (синяя) -->
+        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-bullseye text-blue-600 text-sm"></i>
+        </div>
+
+        <div class="flex-1">
+            <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Цели программы</h3>
+        </div>
+
+        <div>
+            <i id="icon-10" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+        </div>
+    </button>
+
+    <!-- Контент -->
+    <div id="content-10" class="accordion-content bg-white px-5 pb-6">
+
+        <!-- 1. Главная цель (Акцентный блок) -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg mb-5">
+            <p class="text-[13px] text-gray-700 leading-relaxed italic">
+                «Цель программы — сформировать знания об основах теории бизнес-анализа и навыки их применения при принятии управленческих решений в современных условиях»
+            </p>
+        </div>
+
+        <!-- 2. Задачи (Список с галочками) -->
+        <div class="mb-5">
+            <h4 class="font-bold text-[14px] text-gray-900 mb-3">Основные задачи:</h4>
+            <ul class="space-y-2">
+                <li class="flex items-start gap-3">
+                    <i class="fa-solid fa-check text-green-500 mt-1 text-[12px]"></i>
+                    <span class="text-[13px] text-gray-600 leading-snug">Сформировать представление о методах и подходах бизнес-анализа.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <i class="fa-solid fa-check text-green-500 mt-1 text-[12px]"></i>
+                    <span class="text-[13px] text-gray-600 leading-snug">Научить применению программно-технических средств.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                    <i class="fa-solid fa-check text-green-500 mt-1 text-[12px]"></i>
+                    <span class="text-[13px] text-gray-600 leading-snug">Сформировать практические навыки моделирования и визуализации данных.</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 3. Компетенции (Список с иконками навыков) -->
+        <div>
+            <h4 class="font-bold text-[14px] text-gray-900 mb-3">Чему вы научитесь (компетенции):</h4>
+            <div class="space-y-3">
+
+                <!-- Компетенция 1 -->
+                <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                    <div class="w-6 h-6 flex items-center justify-center bg-white rounded shadow-sm text-blue-500 flex-shrink-0">
+                        <i class="fa-solid fa-magnifying-glass-chart text-[10px]"></i>
+                    </div>
+                    <span class="text-[12px] font-medium text-gray-700 leading-tight">Сбор, анализ, моделирование и сопровождение требований</span>
+                </div>
+
+                <!-- Компетенция 2 -->
+                <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                    <div class="w-6 h-6 flex items-center justify-center bg-white rounded shadow-sm text-blue-500 flex-shrink-0">
+                        <i class="fa-solid fa-chart-pie text-[10px]"></i>
+                    </div>
+                    <span class="text-[12px] font-medium text-gray-700 leading-tight">Визуализация данных различными способами</span>
+                </div>
+
+                <!-- Компетенция 3 -->
+                <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                    <div class="w-6 h-6 flex items-center justify-center bg-white rounded shadow-sm text-blue-500 flex-shrink-0">
+                        <i class="fa-solid fa-sitemap text-[10px]"></i>
+                    </div>
+                    <span class="text-[12px] font-medium text-gray-700 leading-tight">Анализ, оценка и описание архитектур программного обеспечения</span>
+                </div>
+
+                <!-- Компетенция 4 -->
+                <div class="flex items-center gap-3 p-2.5 rounded-lg bg-gray-50 border border-gray-100">
+                    <div class="w-6 h-6 flex items-center justify-center bg-white rounded shadow-sm text-blue-500 flex-shrink-0">
+                        <i class="fa-solid fa-file-code text-[10px]"></i>
+                    </div>
+                    <span class="text-[12px] font-medium text-gray-700 leading-tight">Описание тест-кейсов и проведение тестирований</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- 2. СТРУКТУРА МОДУЛЕЙ (Только названия) -->
+<!-- 5. СТРУКТУРА МОДУЛЕЙ (Со скроллом) -->
+<div class="bg-white rounded-[20px] shadow-sm overflow-hidden mt-3">
+    <button onclick="toggleAccordion(11)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+        <div class="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-list-check text-purple-600 text-sm"></i>
+        </div>
+        <div class="flex-1">
+            <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Структура модулей</h3>
+        </div>
+        <div>
+            <i id="icon-11" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+        </div>
+    </button>
+
+    <div id="content-11" class="accordion-content bg-white px-5 pb-6">
+
+        <!-- Добавил: max-h-[400px] (высота), overflow-y-auto (скролл), pr-2 (отступ справа) -->
+        <div class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+
+            <!-- Вставляйте сюда карточки модулей (код из прошлого ответа) -->
+
+            <!-- Модуль 1 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-flag text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 1</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Введение</p>
+                </div>
+            </div>
+
+            <!-- Модуль 2 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-laptop-code text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 2</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Процесс разработки ПО</p>
+                </div>
+            </div>
+
+            <!-- Модуль 3 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-users-viewfinder text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 3</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Сбор бизнес-требований</p>
+                </div>
+            </div>
+
+            <!-- Модуль 4 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-file-contract text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 4</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Разработка требований к ПО</p>
+                </div>
+            </div>
+
+            <!-- Модуль 5 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-diagram-project text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 5</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Моделирование процессов</p>
+                </div>
+            </div>
+
+            <!-- Модуль 6 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-vial-circle-check text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 6</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Тестирование</p>
+                </div>
+            </div>
+
+            <!-- Модуль 7 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-chart-pie text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 7</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Визуализация</p>
+                </div>
+            </div>
+
+            <!-- Модуль 8 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-network-wired text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 8</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Аналитический конвейер</p>
+                </div>
+            </div>
+
+            <!-- Модуль 9 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-cube text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 9</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Аналитический продукт</p>
+                </div>
+            </div>
+
+            <!-- Модуль 10 -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-brain text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 10</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Машинное обучение</p>
+                </div>
+            </div>
+
+            <!-- Модуль 11 (для примера) -->
+            <div class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                <div class="w-8 h-8 flex items-center justify-center bg-white rounded-lg shadow-sm text-purple-600">
+                    <i class="fa-solid fa-database text-xs"></i>
+                </div>
+                <div>
+                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Модуль 11</span>
+                    <p class="text-[13px] font-bold text-gray-900 leading-tight">Инженерия данных</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Стиль для тонкого скроллбара (добавьте это куда-то в <style> или в head) -->
+<style>
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #d1d5db; /* Серый цвет ползунка */
+        border-radius: 4px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #9ca3af;
+    }
+</style>
+
+<!-- 3. СПИКЕРЫ КУРСА (Обновленный блок) -->
+<div class="bg-white rounded-[20px] shadow-sm overflow-hidden mt-3">
+
+    <!-- Шапка аккордеона -->
+    <button onclick="toggleAccordion(12)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+        <!-- Иконка в кружочке (для единого стиля) -->
+        <div class="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-user-tie text-green-600 text-sm"></i>
+        </div>
+
+        <div class="flex-1">
+            <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Спикеры курса</h3>
+        </div>
+
+        <div>
+            <i id="icon-12" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+        </div>
+    </button>
+
+    <!-- Содержимое -->
+    <div id="content-12" class="accordion-content bg-white px-5 pb-6">
+
+        <!-- Карточка спикера -->
+        <div class="flex items-center gap-4 mb-5">
+            <img 
+                src="img/IMG_5815 1.png" 
+                alt="Фёдор Самородов" 
+                class="w-14 h-14 rounded-full object-cover border border-gray-200 flex-shrink-0 shadow-sm"
+            >
+
+            <div>
+                <p class="text-[15px] font-bold text-gray-900 leading-tight">Фёдор Самородов</p>
+                <p class="text-[12px] text-gray-500 mt-1">Сертифицированный тренер Microsoft</p>
+            </div>
+        </div>
+
+        <!-- Список регалий -->
+        <ul class="space-y-3">
+
+            <li class="flex items-start gap-3">
+                <div class="mt-0.5 min-w-[16px] text-center">
+                    <i class="fa-solid fa-check text-green-500 text-[13px]"></i>
+                </div>
+                <span class="text-[13px] text-gray-700 leading-snug">Ведущий преподаватель по SQL Server, Power BI и аналитике данных</span>
+            </li>
+
+            <li class="flex items-start gap-3">
+                <div class="mt-0.5 min-w-[16px] text-center">
+                    <i class="fa-solid fa-check text-green-500 text-[13px]"></i>
+                </div>
+                <span class="text-[13px] text-gray-700 leading-snug">Более 1 000 проведённых курсов, автор 10 программ</span>
+            </li>
+
+            <li class="flex items-start gap-3">
+                <div class="mt-0.5 min-w-[16px] text-center">
+                    <i class="fa-solid fa-check text-green-500 text-[13px]"></i>
+                </div>
+                <span class="text-[13px] text-gray-700 leading-snug">Эксперт по корпоративным ИТ-системам и Windows-инфраструктуре</span>
+            </li>
+
+            <!-- Акцентный пункт про сертификаты -->
+            <li class="flex items-start gap-3 bg-orange-50 p-3 rounded-lg border border-orange-100 mt-2">
+                <div class="mt-0.5 min-w-[16px] text-center">
+                    <i class="fa-solid fa-award text-orange-500 text-[14px]"></i>
+                </div>
+                <span class="text-[13px] font-bold text-gray-800 leading-snug">22 профессиональные сертификации Microsoft</span>
+            </li>
+
+        </ul>
+
+    </div>
+</div>
+
+
+<!-- 4. ФОРМАТ ОБУЧЕНИЯ (+ блок "Для вас") -->
+<div class="bg-white rounded-[20px] shadow-sm overflow-hidden mt-3">
+    <button onclick="toggleAccordion(13)" class="w-full p-5 flex items-center gap-4 text-left active:bg-gray-50 transition">
+
+        <!-- Иконка -->
+        <div class="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center flex-shrink-0">
+            <i class="fa-solid fa-graduation-cap text-blue-600 text-sm"></i>
+        </div>
+
+        <div class="flex-1"> 
+            <h3 class="font-bold text-[15px] text-gray-900 leading-snug">Формат обучения</h3>
+        </div>
+
+        <div>
+            <i id="icon-13" class="fa-solid fa-chevron-down text-gray-400 text-xs rotate-icon"></i>
+        </div>
+    </button>
+
+    <div id="content-13" class="accordion-content bg-white px-5 pb-6">
+
+        <!-- Теги -->
+        <div class="flex gap-2 mb-4">
+             <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold">54 ак. часа</span>
+             <span class="bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-[11px] font-bold">2 месяца</span>
+        </div>
+
+        <!-- Основной список (Обновленный) -->
+<ul class="text-[13px] text-gray-600 space-y-2 mb-6">
+    <li class="flex items-center gap-2">
+        <i class="fa-solid fa-clipboard-check text-gray-400 w-5 text-center"></i> 
+        Входное тестирование
+    </li>
+    <li class="flex items-center gap-2">
+        <i class="fa-solid fa-play-circle text-gray-400 w-5 text-center"></i> 
+        Видеолекции
+    </li>
+    <li class="flex items-center gap-2">
+        <i class="fa-solid fa-comment-dots text-gray-400 w-5 text-center"></i> 
+        Обратная связь от преподавателя
+    </li>
+    <li class="flex items-center gap-2">
+        <i class="fa-solid fa-video text-gray-400 w-5 text-center"></i> 
+        Вебинары
+    </li>
+    <li class="flex items-center gap-2">
+        <i class="fa-solid fa-file-pen text-gray-400 w-5 text-center"></i> 
+        Итоговая аттестация
+    </li>
+    <li class="flex items-start gap-2">
+        <i class="fa-solid fa-certificate text-[#EA580C] w-5 text-center mt-0.5"></i> 
+        <span>Выдача удостоверения о повышении квалификации</span>
+    </li>
+</ul>
+
+        <!-- НОВЫЙ БЛОК "ДЛЯ ВАС" -->
+        <div class="border-t border-gray-100 pt-4">
+            <p class="font-bold text-[14px] text-gray-900 mb-3">Для вас:</p>
+
+            <div class="grid grid-cols-2 gap-2">
+                <!-- Карточка 1 -->
+                <div class="bg-gray-50 rounded-lg p-3 flex flex-col items-start gap-2">
+                    <i class="fa-solid fa-users text-blue-500 text-sm"></i>
+                    <span class="text-[11px] leading-tight font-medium text-gray-700">Сопровождение кураторов</span>
+                </div>
+
+                <!-- Карточка 2 -->
+                <div class="bg-gray-50 rounded-lg p-3 flex flex-col items-start gap-2">
+                    <i class="fa-solid fa-life-ring text-blue-500 text-sm"></i>
+                    <span class="text-[11px] leading-tight font-medium text-gray-700">Методическая поддержка</span>
+                </div>
+
+                <!-- Карточка 3 -->
+                <div class="bg-gray-50 rounded-lg p-3 flex flex-col items-start gap-2">
+                    <i class="fa-solid fa-book-open text-blue-500 text-sm"></i>
+                    <span class="text-[11px] leading-tight font-medium text-gray-700">Доступ к онлайн-библиотеке</span>
+                </div>
+
+                <!-- Карточка 4 -->
+                <div class="bg-gray-50 rounded-lg p-3 flex flex-col items-start gap-2">
+                    <i class="fa-solid fa-comments text-blue-500 text-sm"></i>
+                    <span class="text-[11px] leading-tight font-medium text-gray-700">Обратная связь от преподавателя</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</div>
+
+
+    <script>
+        const tg = window.Telegram.WebApp;
+        tg.expand();
+
+        // 1. Открываем первую вкладку при старте
+        document.getElementById('content-1').classList.add('open');
+        document.getElementById('icon-1').classList.add('open');
+
+        function toggleAccordion(id) {
+            const clickedContent = document.getElementById('content-' + id);
+            const clickedIcon = document.getElementById('icon-' + id);
+
+            // Сохраняем текущее состояние кликнутого элемента
+            const isAlreadyOpen = clickedContent.classList.contains('open');
+
+            // 2. Закрываем ВСЕ
+            const allContents = document.querySelectorAll('.accordion-content');
+            const allIcons = document.querySelectorAll('.rotate-icon');
+
+            allContents.forEach(el => el.classList.remove('open'));
+            allIcons.forEach(el => el.classList.remove('open'));
+
+            // 3. Открываем кликнутый, если он был закрыт
+            if (!isAlreadyOpen) {
+                clickedContent.classList.add('open');
+                clickedIcon.classList.add('open');
+            }
+        }
+    </script>
+</body>
+</html>
